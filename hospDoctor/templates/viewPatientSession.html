@@ -1,0 +1,239 @@
+{% extends 'doctorBase.html' %} {% block content %} {% load static %}
+
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+  <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
+    <div
+      class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap"
+    >
+      <div class="d-flex align-items-center flex-wrap mr-1">
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+          <h5 class="text-dark font-weight-bold my-1 mr-5">
+           Patient Session
+          </h5>
+
+          <ul
+            class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm"
+          >
+            {% comment %}
+            <li class="breadcrumb-item">
+              <a href="" class="text-muted"> General </a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="" class="text-muted"> Empty Page </a>
+            </li>
+            {% endcomment %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column-fluid">
+    <div class="container">
+      {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %}
+      <div class="card">
+        <form method="post" class="form">
+          <div class="card-body">
+            {% if messages.error %}
+            <div
+              class="alert alert-custom alert-light-danger fade show mb-5"
+              role="alert"
+            >
+              <div class="alert-icon"><i class="flaticon-warning"></i></div>
+              <div class="alert-text">{{messages.error}}</div>
+              <div class="alert-close">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+              </div>
+            </div>
+            {% elif messages.success %}
+            <div
+              class="alert alert-custom alert-light-primary fade show mb-5"
+              role="alert"
+            >
+              <div class="alert-icon"><i class="flaticon-warning"></i></div>
+              <div class="alert-text">{{messages.success}}</div>
+              <div class="alert-close">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+              </div>
+            </div>
+            {% endif %}
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label class="font-weight-bolder">First name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="first_name"
+                  placeholder="Enter First name"
+                  required
+                  disabled
+                  value="{{session.patient.user.first_name}}"
+                />
+                <span class="form-text text-muted"
+                  >Please enter First name</span
+                >
+              </div>
+              <div class="col-lg-6">
+                <label class="font-weight-bolder">Last Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="last_name"
+                  placeholder="Enter Last Name"
+                  required
+                  disabled
+                  value="{{session.patient.user.last_name}}"
+
+                />
+                <span class="form-text text-muted">Please enter Last Name</span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label class="font-weight-bolder">Doctors</label>
+
+                <select
+                  required
+                  name="status"
+                  disabled
+
+                  class="form-control"
+                  id="specialty"
+                >
+                              <option value="PENDING" {% if session.appointment.status == 'PENDING' %}selected{% endif %}>PENDING</option>
+
+                              <option value="APPROVED" {% if session.appointment.status == 'APPROVED' %}selected{% endif %}>APPROVED</option>
+                              <option value="REJECTED" {% if session.appointment.status == 'REJECTED' %}selected{% endif %}>REJECTED</option>
+                              <option value="CANCELLED" {% if session.appointment.status == 'CANCELLED' %}selected{% endif %}>CANCELLED</option>
+                              <option value="COMPLETED" {% if session.appointment.status == 'COMPLETED' %}selected{% endif %}>COMPLETED</option>
+
+                </select>
+                <span class="form-text text-muted">Please select Status</span>
+              </div>
+              <div class="col-lg-6">
+                <label class="font-weight-bolder">Purpose:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="purpose"
+                  placeholder="Enter First name"
+                  required
+                  disabled
+                  value="{{session.appointment.purpose}}"
+                />
+                <span class="form-text text-muted"
+                  >Please enter purpose of visit</span
+                >
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label class="font-weight-bolder">Date and time</label>
+                <div
+                  class="input-group input-group-solid date"
+                  id="kt_datetimepicker_3"
+                  data-target-input="nearest"
+                >
+                  <input
+                    name="date_and_time"
+                    type="text"
+                    required
+                    disabled
+                    value="{{session.appointment.date}} {{session.appointment.time}}"
+                    class="form-control form-control-solid datetimepicker-input"
+                    placeholder="Select date &amp; time"
+                    data-target="#kt_datetimepicker_3"
+                  />
+                  <div
+                    class="input-group-append"
+                    data-target="#kt_datetimepicker_3"
+                    data-toggle="datetimepicker"
+                  >
+                    <span class="input-group-text">
+                      <i class="ki ki-calendar"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <label class="font-weight-bolder">Doctors</label>
+
+                <select
+                  required
+                  name="doc_id"
+                  class="form-control"
+                  disabled
+
+                  id="specialty"
+                  value="{{session.appointment.doctor.id}}"
+                >
+                  <option></option>
+                  <!-- prettier-ignore -->
+                  {% for doctor in doctors %}
+                  <!-- prettier-ignore -->
+                  {%if session.appointment.doctor.id == doctor.id %}
+                  <option selected value="{{doctor.id}}">
+                    {{doctor.user.first_name}}--- {{doctor.specialty}}
+                  </option>
+                  {% else %}
+                  <option value="{{doctor.id}}">
+                    {{doctor.user.first_name}}--- {{doctor.specialty}}
+                  </option>
+                  {% endif %} {% endfor %}
+                </select>
+                <span class="form-text text-muted">Please select a doctor</span>
+              </div>
+            </div>
+            <div class="form-group mb-1">
+						<label for="exampleTextarea">Doctor note</label>
+                  
+						<textarea disabled name="description" class="form-control" id="exampleTextarea" rows="3" style="height: 111px;">
+              {{session.description}}
+            </textarea>
+					</div>
+            <input type="hidden" name="user_id" value="{{patient.id}}" />
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-lg-6">
+                <a href="{% url 'myAppointments' user_id=user_id %}" class="btn btn-primary mr-2">
+                  Close
+                </a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'assets/js/pages/crud/forms/widgets/bootstrap-timepicker.js?v=7.0.6' %}"></script>
+<script src="{% static 'assets/js/pages/crud/forms/widgets/bootstrap-datetimepicker.js?v=7.0.6' %}"></script>
+{% endblock content %}
