@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "secret_key")
 # DEBUG = True
 DEBUG = os.environ.get("DEBUG", True)
 
-ALLOWED_HOSTS = [".onrender.com"]
+ALLOWED_HOSTS = [".onrender.com", "localhost"]
 
 
 # Application definition
@@ -64,6 +64,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # AUTH_USER_MODEL = 'hospAuth.HospUser'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR, "static"]
+STATIC_ROOT = 'staticfiles'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 TEMPLATES = [
