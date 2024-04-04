@@ -1,24 +1,17 @@
-# Use the official Ubuntu base image
-FROM ubuntu:latest
-
-# Set the working directory in the container
+FROM python:3.11.4-slim-bullseye
 WORKDIR /app
 
-# Update package lists and install any required dependencies
-RUN apt-get update && \
-    apt-get install -y \
-    # Add your required packages here, for example:
-    python3 \
-    python3-pip
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
 
-# Copy the local project directory to the container
+# install system dependencies
+RUN apt-get update
+
+# install dependencies
+RUN pip install --upgrade pip
+COPY ./requirements.txt /app/
+RUN pip install -r requirements.txt
+
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip3 install --no-cache-dir -r requirements.txt
-
-# Expose port 8000 to allow communication to/from server
-EXPOSE 8000
-
-# Run Django's built-in development server when the container launches
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT [ "gunicorn", "core.wsgi", "-b", "0.0.0.0:8000"]
