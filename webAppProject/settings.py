@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,14 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-e_1shz^m-b@k%7goekb6&zl@3pz%ge_ihn$2uhs((+#8br1_ym'
-SECRET_KEY = os.environ.get("SECRET_KEY", "secret_key")
+SECRET_KEY = 'django-insecure-e_1shz^m-b@k%7goekb6&zl@3pz%ge_ihn$2uhs((+#8br1_ym'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.environ.get("DEBUG", True)
+DEBUG = True
 
-ALLOWED_HOSTS = [".onrender.com", "localhost"]
+
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -48,7 +48,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -64,9 +63,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # AUTH_USER_MODEL = 'hospAuth.HospUser'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR, "static"]
-STATIC_ROOT = 'staticfiles'
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
