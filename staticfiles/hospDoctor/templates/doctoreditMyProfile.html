@@ -1,0 +1,172 @@
+{% extends 'doctorBase.html' %}{% block content %}
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+  <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
+    <div
+      class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap"
+    >
+      <div class="d-flex align-items-center flex-wrap mr-1">
+        <div class="d-flex align-items-baseline flex-wrap mr-5">
+          <h5 class="text-dark font-weight-bold my-1 mr-5">Create Doctor</h5>
+
+          <ul
+            class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm"
+          >
+            {% comment %}
+            <li class="breadcrumb-item">
+              <a href="" class="text-muted"> General </a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="" class="text-muted"> Empty Page </a>
+            </li>
+            {% endcomment %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column-fluid">
+    <div class="container">
+      {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %} {% comment %}
+      <p>Page content goes</p>
+      {% endcomment %}
+      <div class="card">
+        <form method="post" class="form">
+          <div class="card-body">
+            {% if messages.error %}
+            <div
+              class="alert alert-custom alert-light-danger fade show mb-5"
+              role="alert"
+            >
+              <div class="alert-icon"><i class="flaticon-warning"></i></div>
+              <div class="alert-text">{{messages.error}}</div>
+              <div class="alert-close">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+              </div>
+            </div>
+            {% elif messages.success %}
+            <div
+              class="alert alert-custom alert-light-primary fade show mb-5"
+              role="alert"
+            >
+              <div class="alert-icon"><i class="flaticon-warning"></i></div>
+              <div class="alert-text">{{messages.success}}</div>
+              <div class="alert-close">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                </button>
+              </div>
+            </div>
+            {% endif %}
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label>First Name:</label>
+                <input
+                  type="text"
+                  value="{{user_data.data.user.first_name}}"
+                  class="form-control"
+                  name="first_name"
+                  placeholder="Enter First name"
+                  required
+                />
+                <span class="form-text text-muted"
+                  >Please enter your First name</span
+                >
+              </div>
+              <div class="col-lg-6">
+                <label>Last Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  value="{{user_data.data.user.last_name}}"
+                  name="last_name"
+                  placeholder="Enter Last name"
+                  required
+                />
+                <span class="form-text text-muted"
+                  >Please enter your Last name</span
+                >
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label>User Name:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="username"
+                  value="{{user_data.data.user.username}}"
+                  placeholder="Enter User name"
+                  required
+                />
+                <span class="form-text text-muted"
+                  >Please enter your User name</span
+                >
+              </div>
+              <div class="col-lg-6">
+                <label>Password:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  value="{{user_data.data.user.password}}"
+                  placeholder="Enter Password"
+                  required
+                />
+                <span class="form-text text-muted"
+                  >Please enter your Password</span
+                >
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-lg-6">
+                <label for="specialty">Specialty</label>
+                <select name="specialty" class="form-control" id="specialty">
+                  <option value="Gynacologist" {% if doctor.specialty == 'Gynacologist' %}selected{% endif %}>Gynacologist</option>
+                  <option value="Dentist" {% if doctor.specialty == 'Dentist' %}selected{% endif %}>Dentist</option>
+                  <option value="Peadiatritian" {% if doctor.specialty == 'Peadiatritian' %}selected{% endif %}>Peadiatritian</option>
+                  <option value="ENT" {% if doctor.specialty == 'ENT' %}selected{% endif %}>ENT</option>
+                  <option value="Psychologist" {% if doctor.specialty == 'Psychologist' %}selected{% endif %}>Psychologist</option>
+
+           
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary mr-2">
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
