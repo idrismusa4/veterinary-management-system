@@ -1,7 +1,7 @@
 asgiref==3.7.2
 certifi==2024.2.2
 chardet==3.0.4
-Django==4.2.1
+Django==5.0.2
 django-debug-toolbar==4.3.0
 django-jazzmin==2.6.0
 dnspython==2.6.0
