@@ -64,7 +64,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # AUTH_USER_MODEL = 'hospAuth.HospUser'
 
-
+CSRF_TRUSTED_ORIGINS = ['https://vms.up.railway.app']
 
 TEMPLATES = [
     {
