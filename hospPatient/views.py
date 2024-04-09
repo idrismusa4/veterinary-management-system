@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from hospPatient.forms import PatientForm
@@ -55,8 +55,7 @@ def PatientDashboard(request,user_id):
         counts['appointment_count'] = appointment_count
     
   
-    user = get_object_or_404(Hospuser, id=user_id)
-    return render(request, 'patientDashboard.html', context={'messages': message_dict,'user_data':user_data,'user_id':user_id,'counts':counts,'patient':patient, 'user': user})
+    return render(request, 'patientDashboard.html', context={'messages': message_dict,'user_data':user_data,'user_id':user_id,'counts':counts,'patient':patient})
 
 @csrf_exempt 
 def PatienteditMyProfile(request,user_id):
