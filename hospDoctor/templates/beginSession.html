@@ -169,7 +169,8 @@
                     value="{{appointment.date}} {{appointment.time}}"
                     class="form-control form-control-solid datetimepicker-input"
                     placeholder="Select date &amp; time"
-                    data-target="#kt_datetimepicker_3"/>
+                    data-target="#kt_datetimepicker_3"
+                  />
                   <div
                     class="input-group-append"
                     data-target="#kt_datetimepicker_3"
@@ -209,29 +210,14 @@
                 </select>
                 <span class="form-text text-muted">Please select a doctor</span>
               </div>
-              
             </div>
-
-            <div class="form-group row">
-              <div class="col-lg-6">
-                <label class="font-weight-bolder">Prescription</label>
-                <select name="{{ form.prescription.name }}" class="form-control" required>
-                  <option value="">Please select a prescription</option>
-                  {% for value, label in form.fields.prescription.choices %}
-                    <option value="{{ value }}">{{ label }}</option>
-                  {% endfor %}
-                </select>
-                <span class="form-text text-muted">Please select a prescription</span>
-              </div>
-            </div>
-
+            
             <div class="form-group mb-1">
 						<label for="exampleTextarea">Doctor note</label>
 						<textarea name="description" class="form-control" id="exampleTextarea" rows="3" style="height: 111px;"></textarea>
 					</div>
             <input type="hidden" name="user_id" value="{{patient.id}}" />
           </div>
-          
           <div class="card-footer">
             <div class="row">
               <div class="col-lg-6">

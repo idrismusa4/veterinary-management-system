@@ -26,18 +26,18 @@
 
 
     <div class="input_box">
-      <input type="text" id="user" class="input-field" name="username" required>
-      <label for="user" class="label">Username</label>
+      <input type="text" id="user" class="input-field" name="username" required placeholder="Username">
+      <!-- <label for="user" class="label">Username</label> -->
       <i class="bx bx-user icon"></i>
     </div>
 
     <div class="input_box">
-      <input type="password" id="pass" class="input-field" name="password" required>
-      <label for="pass" class="label">Password</label>
+      <input type="password" id="pass" class="input-field" name="password" required placeholder="Password">
+      <!-- <label for="pass" class="label">Password</label> -->
       <i class="bx bx-lock-alt icon"></i>
     </div>
 
-    <div class="remember-forgot">
+    <!-- <div class="remember-forgot">
       <div class="remember-me">
         <input type="checkbox" id="remember">
         <label for="remember">Remember me</label>
@@ -46,7 +46,7 @@
       <div class="forgot">
         <a href="#">Forgot password?</a>
       </div>
-    </div>
+    </div> -->
 
     <div class="input_box">
       <button class="input-submit">Log In</button>
@@ -55,6 +55,8 @@
 
     <div class="register">
       <span>Don't have an account? <a href="{% url 'PatientSignUp' %}">Register</a></span>
+      <br><span>Are you a Doctor?<a href="{% url 'DoctorLogin' %}">Login</a></span>
+      <br><span>Admin?<a href="{% url 'AdminLogin' %}">Login</a></span>
     </div>
   </div>
 </form>
