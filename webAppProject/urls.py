@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from hospAuth.views import PatientLogin,PatientSignUp
-from hospPatient.views import PatientDashboard,PatienteditMyProfile,BookAppointment,PatientAppointments,mySession
-from hospAdmin.views import AdminLogin,AdminDashboard,createDoctor,AllDoctors,editDoctor,AllPatients,editPatient,createPatient,allAppointments,assignAppointment,AdminviewPatientSession
-from hospDoctor.views import DoctorDashboard,DoctorLogin,myAppointments,beginSession,viewPatientSession,doctoreditMyProfile
+from hospAdmin.models import *
+from hospAuth.views import *
+from hospPatient.views import *
+from hospAdmin.views import *
 
+from hospDoctor.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('patientSignUp/',PatientSignUp, name="PatientSignUp"),
@@ -41,6 +42,7 @@ urlpatterns = [
     path('DoctorLogin/',DoctorLogin, name="DoctorLogin"),
     path('AllDoctors/<int:admin_id>/',AllDoctors, name="AllDoctors"),
     path('allAppointments/<int:admin_id>/',allAppointments, name="allAppointments"),
+    path('inventory/<int:admin_id>/',inventory, name="inventory"),
     path('PatientAppointments/<int:user_id>/',PatientAppointments, name="PatientAppointments"),
     path('assignAppointment/<int:admin_id>/<int:appointment_id>/',assignAppointment, name="assignAppointment"),
     path('beginSession/<int:user_id>/<int:appointment_id>/',beginSession, name="beginSession"),

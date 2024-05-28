@@ -1,3 +1,5 @@
+import re
+from unicodedata import category
 from django.db import models
 from hospDoctor.models import Doctor
 from hospPatient.models import Patient
@@ -37,5 +39,23 @@ class Admin(models.Model):
     username =  models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     password =  models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)    
+
+class Inventory(models.Model):
+    name =  models.CharField(max_length=100)
+    quantity =  models.IntegerField()
+    price =  models.FloatField(default=2500.00)
+    category = models.CharField(max_length=100, default='Medicine')
     created_at = models.DateTimeField(auto_now_add=True)
+    STATUS_CHOICES = (
+        ('AVAILABLE', 'Available'),
+        ('OUT OF STOCK', 'Out of Stock'),
+        ('REFILL SOON', 'Refill Soon'),
+    )
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='AVAILABLE')
+
+
+    def __str__(self):
+        return f'{self.name} - {self.quantity} - {self.price} - {self.status}'
     

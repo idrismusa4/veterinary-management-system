@@ -1,12 +1,12 @@
 from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
-from hospDoctor.forms import DoctorForm
-from hospPatient.forms import PatientForm
-from hospAdmin.models import Session,Appointment
-from hospDoctor.models import Doctor
-from hospPatient.models import Patient
-from hospAuth.models import Hospuser
-from .models import Admin
+from hospDoctor.forms import *
+from hospPatient.forms import *
+from hospAdmin.models import *
+from hospDoctor.models import *
+from hospPatient.models import *
+from hospAuth.models import *
+from .models import *
 from datetime import datetime,date
 
 
@@ -392,3 +392,14 @@ def AdminviewPatientSession(request,admin_id,appointment_id):
     }
     
     return render(request, 'AdminviewPatientSession.html', context={'messages': message_dict,'user_data':user_data,'doctors': doctors,'admin_id':admin_id,'session':session})   
+
+@csrf_exempt
+def inventory(request,admin_id):
+    # user = Hospuser.objects.get(id=admin_id)
+    # user_data={
+    #     'type':'admin',
+    #     'data':user
+    # }
+
+    inventory = Inventory.objects.all()
+    return render(request, 'inventory.html', {"inventory":inventory,'admin_id':admin_id})

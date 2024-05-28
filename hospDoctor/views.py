@@ -1,9 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-from hospAuth.models import Hospuser
-from hospDoctor.models import Doctor
-from hospAdmin.models import Session,Appointment
+from hospAuth.models import *
+from hospDoctor.models import *
+from hospAdmin.models import *
 from datetime import datetime
+from django.contrib import messages
 date_format = '%m/%d/%Y %I:%M %p'
 
 # Create your views here.
@@ -94,38 +95,40 @@ def myAppointments(request,user_id):
     return render(request, 'myAppointments.html', context={'messages': message_dict,'user_data':user_data,'user_id':user_id, "appointments":appointments})
 
 @csrf_exempt
-def beginSession(request,user_id,appointment_id):
-    message_dict = {
-        # 'success': False,
-        # 'error': False
-    }
+
+@csrf_exempt
+def beginSession(request, user_id, appointment_id):
+    message_dict = {}
     
     doctors = Doctor.objects.all()
-    appointment = Appointment.objects.get(id=appointment_id)
-    
-    user_id = appointment.doctor.user.id
-    
-    user = Hospuser.objects.get(id=user_id)
-    
-    doctor = Doctor.objects.get(user=user)
-    appointments=[]
-    
-    if Appointment.objects.filter(doctor=doctor).exists:
-        appointments = Appointment.objects.filter(doctor=doctor)
-    
-    user_data={
-        'type':'patient',
-        'data':doctor,
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    user = get_object_or_404(Hospuser, id=appointment.doctor.user.id)
+    doctor = get_object_or_404(Doctor, user=user)
+    appointments = Appointment.objects.filter(doctor=doctor)
+
+    user_data = {
+        'type': 'patient',
+        'data': doctor,
     }
     
     if request.method == 'POST':
-      
-        if Session.objects.filter(appointment=appointment).exists:
-            # return render(request, 'myAppointments.html', context={'messages': message_dict,'user_data':user_data,'user_id':user_id,'appointment':appointment,'user_id':user_id,'doctors':doctors,'appointments':appointments}) 
- 
+        drugs_data = request.POST.getlist('drug_name')
+        quantities = request.POST.getlist('quantity')
+
+        if Session.objects.filter(appointment=appointment).exists():
             description = request.POST.get('description')
 
-            appointment.status="COMPLETED"
+            for drug_name, quantity in zip(drugs_data, quantities):
+                quantity = int(quantity)
+                drug = get_object_or_404(Inventory, name=drug_name)
+                
+                if drug.quantity >= quantity:
+                    drug.quantity -= quantity
+                    drug.save()
+                else:
+                    messages.error(request, f'Not enough {drug.name} in stock. Only {drug.quantity} left.')
+
+            appointment.status = "COMPLETED"
             appointment.save()
             session = Session.objects.create(
                 patient=appointment.patient,
@@ -133,12 +136,21 @@ def beginSession(request,user_id,appointment_id):
                 doctor=appointment.doctor,
                 description=description
             )
-            
             session.save()
-            message_dict["success"] = 'Appointment Updated Successfully'
-            return render(request, 'myAppointments.html', context={'messages': message_dict,'user_data':user_data,'user_id':user_id,'appointment':appointment,'user_id':user_id,'doctors':doctors,'appointments':appointments}) 
-        
-    return render(request, 'beginSession.html', context={'messages': message_dict,'user_data':user_data,'doctors': doctors,'user_id':user_id,'appointment':appointment,'user_id':user_id})   
+            messages.success(request, 'Appointment Updated Successfully')
+
+            return redirect('myAppointments', user_id=user_id)
+
+    drugs = Inventory.objects.all()
+    
+    return render(request, 'beginSession.html', {
+        'messages': message_dict,
+        'user_data': user_data,
+        'doctors': doctors,
+        'user_id': user_id,
+        'appointment': appointment,
+        'drugs': drugs
+    })
 
 @csrf_exempt
 def viewPatientSession(request,user_id,appointment_id):
@@ -201,7 +213,7 @@ def doctoreditMyProfile(request,user_id):
             user.save()
             doctor.save()
         
-            message_dict["success"] = 'Your Profile Updated'
+            message_dict["success"] = 'Your Profile Updated' # type: ignore
         
             return render(request, 'doctoreditMyProfile.html', context={'messages': message_dict,'user_data':user_data,'user_id':user_id,'doctor':doctor}) # Replace 'success-page' with your desired URL
         else:
