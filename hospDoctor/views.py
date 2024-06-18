@@ -95,8 +95,6 @@ def myAppointments(request,user_id):
     return render(request, 'myAppointments.html', context={'messages': message_dict,'user_data':user_data,'user_id':user_id, "appointments":appointments})
 
 @csrf_exempt
-
-@csrf_exempt
 def beginSession(request, user_id, appointment_id):
     message_dict = {}
     

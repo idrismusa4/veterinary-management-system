@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'hospDoctor',
     'hospPatient',
     'hospAdmin',
+
 ]
 
 MIDDLEWARE = [
