@@ -10,4 +10,4 @@ python manage.py collectstatic --noinput
 
 # Start server
 echo "Starting server"
-gunicorn webAppProject.wsgi:application --bind 0.0.0.0:8000
+exec "$@"

@@ -20,3 +20,6 @@ EXPOSE 8000
 
 # Run the entrypoint script
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
+
+# Add the command to run the application
+CMD ["gunicorn", "webAppProject.wsgi:application", "--bind", "0.0.0.0:8000"]
